@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-md-4">
+        <button class="btn btn-sm btn-warning" ng-click="back()">返回</button>&nbsp;&nbsp;
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-lg-6">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">器具名称</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">许可证号</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.licenseNum}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">器具用户</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.department.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">学科类别</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.instrumentType.instrumentFirstLevelType.discipline.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">一级类别</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.instrumentType.instrumentFirstLevelType.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">二级类别</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.instrumentType.name}}</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 control-label">出厂名称</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.outOfFactoryName}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">型号规格</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.specificationName}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">用途</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.purpose.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">测量范围</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">
+                       {{data.minMeasureScale | yunzhiMeasureScale: data.maxMeasureScale}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">精确度等级</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.accuracy.value}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">制造单位</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.generativeDepartment.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">出厂编号</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.serialNum}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">检定天数</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data | CheckCycle}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">下次检定日期</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.nextCheckDate}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">审核日期</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.auditDate}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">安装地点</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{data.fixSite}}</p>
+                </div>
+            </div>
+            <div ng-show="data.status === 3">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">退回原因</label>
+                    <div class="col-sm-8">
+                        <p class="form-control-static ng-binding">{{data.backedReason.reason}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-repeat="_image in data.attachments">
+                <label class="col-sm-4 control-label">附件信息</label>
+                <div class="col-sm-8">
+                    <div class="inner-gallery" >
+                        <a ng-href="{{_image.saveName | imagePath}}">
+                            <img class="image" ng-src="{{_image.saveName | imagePath}}" alt="{{_image.name}}" style="width: 300px; height: 300px"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

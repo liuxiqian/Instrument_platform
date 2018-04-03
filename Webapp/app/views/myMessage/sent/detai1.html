@@ -1,0 +1,28 @@
+<div class="row" ng-controller="MyMessageSentDetailCtrl">
+    <div class="col-lg-12">
+        <div class="hpanel email-compose">
+            <div class="border-top border-left border-right bg-light">
+                <div class="p-m">
+
+                    <div>
+                        <span class="font-extra-bold">标题: </span>
+                        {{data.title}}
+                    </div>
+                    <div>
+                        <span class="font-extra-bold">收件部门: </span>
+                        {{data.toDepartment.name}}
+                    </div>
+                    <div>
+                        <span class="font-extra-bold">日期: </span>
+                        {{data.createTime | date:'yyyy-MM-dd HH:mm:ss'}}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <span ng-bind-html="data.content | trustHtml"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

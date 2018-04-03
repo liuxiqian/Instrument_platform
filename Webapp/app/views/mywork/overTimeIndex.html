@@ -1,0 +1,48 @@
+<!-- 一级超期模板 -->
+<div class="table-responsive">
+    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+        <div class="row" ng-hide="$parent.showPage">
+            <div class="col-sm-4">
+                <yunzhi-page-size ng-model="selectedEntryId"></yunzhi-page-size>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>系统编号</th>
+                    <th>学科类别</th>
+                    <th>一级类别</th>
+                    <th>器具类别</th>
+                    <th>器具名称</th>
+                    <th>计划检定日期</th>
+                    <th>剩余日期</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="_data in data.content">
+                    <th>{{data.number * data.size + $index+1}}</th>
+                    <th>{{_data.id}}</th>
+                    <th>{{_data.instrumentType.instrumentFirstLevelType.discipline.name}}</th>
+                    <th>{{_data.instrumentType.instrumentFirstLevelType.name}}</th>
+                    <th>{{_data.instrumentType.name}}</th>
+                    <th>{{_data.name}}</th>
+                    <th>{{_data.lastCheckApply.plannedCheckDate | date : 'yyyy-MM-dd HH:mm:ss'}}</th>
+                    <th></th>
+                    <th>
+                        <a ng-show="data.showView(_data)" class="btn btn-xs btn-outline btn-info" ng-if="_data.done" ui-sref="mywork.view({work: _data, id: _data.id})">
+                        <i class="pe-7s-look"></i>&nbsp;查看</a>
+                        <a class="btn btn-xs btn-outline btn-primary2" ng-show="data.showAudit(_data)" ui-sref="mywork.audit({id: _data.id})">
+                        <i class="fa fa-check-square-o"></i>&nbsp;审核</a>
+                        <a class="btn btn-xs btn-outline btn-primary2" ng-show="data.showEdit(_data)" ui-sref="mywork.edit({id: _data.id})">
+                        <i class="fa fa-check-square-o"></i>&nbsp;编辑</a>
+                    </th>
+                </tr>
+            </tbody>
+        </table>
+        <yunzhi-page data-total-pages="data.content.totalPages" data-total-elements="data.content.totalElements" data-first="data.content.first" data-last="data.content.last" data-number="data.content.number" data-size="data.content.size" data-number-of-elements="data.content.numberOfElements" data-reload="reloadByPage" ng-hide="showPage"></yunzhi-page>
+    </div>
+</div>

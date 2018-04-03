@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-lg-6">
+        <form class="form-horizontal" name="form" ng-submit="update()">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">名称</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.name" name="name" required>
+                    <div class="m-t-xs" ng-show="form.name.$touched && form.name.$invalid">
+                        <span class="text-danger" ng-show="form.name.$error.required"><i class="fa fa-exclamation-triangle"></i> 名称不能为空</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">标签名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.label" name="label" required>
+                    <div class="m-t-xs" ng-show="form.label.$touched && form.label.$invalid">
+                        <span class="text-danger" ng-show="form.label.$error.required"><i class="fa fa-exclamation-triangle"></i> 标签名不能为空</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">描述</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.description" name="description" required>
+                    <div class="m-t-xs" ng-show="form.description.$touched && form.description.$invalid">
+                        <span class="text-danger" ng-show="form.description.$error.required"><i class="fa fa-exclamation-triangle"></i> 描述不能为空</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">权重</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.weight" name="weight" required>
+                    <div class="m-t-xs" ng-show="form.weight.$touched && form.weight.$invalid">
+                        <span class="text-danger" ng-show="form.weight.$error.required"><i class="fa fa-exclamation-triangle"></i> 权重必须为整数</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">字段类型</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.type" name="type" required>
+                    <div class="m-t-xs" ng-show="form.type.$touched && form.type.$invalid">
+                        <span class="text-danger" ng-show="form.type.$error.required"><i class="fa fa-exclamation-triangle"></i> 字段类型不能为空</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">是否为必填字段</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.required" name="required" required>
+                    <div class="m-t-xs" ng-show="form.required.$touched && form.required.$invalid">
+                        <span class="text-danger" ng-show="form.required.$error.required"><i class="fa fa-exclamation-triangle"></i> 是否为必填字段必须为布尔类型</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">警告信息</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="data.warnMessage" name="warnMessage" required>
+                    <div class="m-t-xs" ng-show="form.warnMessage.$touched && form.warnMessage.$invalid">
+                        <span class="text-danger" ng-show="form.warnMessage.$error.required"><i class="fa fa-exclamation-triangle"></i> 警告信息不能为空</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-4">
+                    <button ng-disabled="form.$invalid || resetPassword != confirmPassword || isRight == false" ng-hide="form.$submitted" class="btn btn-primary" type="submit">
+                        <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;保存
+                    </button>
+                    <button ng-disabled="true" ng-show="form.$submitted" class="btn btn-primary" type="button">
+                        &nbsp;&nbsp;数据正在处理...
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

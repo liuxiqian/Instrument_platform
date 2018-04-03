@@ -1,0 +1,97 @@
+# 声明使用语言
+language: java
+  
+# 声明JDK版本
+jdk:
+  - oraclejdk8
+
+# travis升级后，增加该选项
+group: edge
+
+# 声明使用的服务
+services:
+  - docker
+  - mysql
+
+# 指定使用软件的版本号
+addons:
+  apt:
+    packages:
+      - mysql-server-5.6
+      - mysql-client-core-5.6
+      - mysql-client-5.6
+
+# 运行前设置
+before_script:
+  # 安装nodejs
+  # - nvm install 0.10
+  # - nvm use 0.10
+  # # 进入Webapp目录
+  # - cd Webapp
+  # # npm 清理缓存
+  # # - npm cache clear
+  # - npm install grunt-cli -g
+  # - npm install bower -g
+  # - npm install
+
+  # # bower 清理缓存安装插件(由于travis ci在进行bower安装时，会出现随机错误，所以将bower依赖做上传处理)
+  # - bower cache clean
+  # - rm -rf bower_components
+  # - git clone --depth=1 --branch=bower_components https://github.com/yunzhiclub/MeasurementItemFrontEnd.git bower_components
+  # - bower install
+
+  # # 增加 内部PhantomJS 支持 (版本和我们的项目有出入，弃用)
+  # - "export DISPLAY=:99.0"
+  # - "sh -e /etc/init.d/xvfb start"
+  # # 设置延迟，也确保上面的命令执行完毕
+  # - sleep 3
+
+# 通知方式
+notifications:
+  email: false
+  webhooks: https://oapi.dingtalk.com/robot/send?access_token=15601e3b5602c662d2db4d4a5dc89600435114c4fcfbcfaccb3fcc1ff5437ad8
+
+# 执行脚本前创建数据库
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS measurement default charset utf8 COLLATE utf8_general_ci;' -uroot
+
+# 脚本
+script:
+  # - grunt test
+  - cd api
+  - mv resource/src/main/resources/application.properties.test resource/src/main/resources/application.properties
+  - rm resource/src/main/resources/application.yml
+  - mv pom.bak.xml pom.xml
+  - java -version
+  - javac -version
+  # 强制清除maven的所有缓存
+  # - mvn clean install -U
+  # 注入配置信息 使得mvn test在执行时，只显示ERROR信息。防止travis当输出内容大于4M后，自动终止程序的误报.
+  # - echo "logging.level.org.hibernate.type.descriptor.sql=error" >> src/main/resources/application.properties
+  # - echo "logging.level.org.hibernate.SQL=error" >> src/main/resources/application.properties
+  - echo "logging.level.com.mengyunzhi.measurement=error" >> resource/src/main/resources/application.properties
+  # - echo "logging.level.com.mengyunzhi.measurement=error" >> src/main/resources/application.properties
+  # - echo "spring.jpa.hibernate.ddl-auto=create" >> src/main/resources/application.properties
+  # - cat src/main/resources/application.properties
+  # - more src/main/resources/application.properties
+  - mvn test
+
+
+# 声明缓存
+cache:
+  directories:
+  - .autoconf
+  - $HOME/.m2
+  # - Webapp/node_modules
+
+# 脚本执行成功后，进入文档文件夹，并强行push到项目的gh-page分支，生成项目文档
+after_success:
+  - cd resource/target/
+  # - cp api-0.0.5-SNAPSHOT.jar asciidoc/html/
+  - cd asciidoc/html
+  - git init
+  - git config user.name "${GH_USER_NAME}"
+  - git config user.email "{GH_USER_EMAIL}"
+  - git add . ; git commit -m "Deploy to GitHub Pages"
+  - git status
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages

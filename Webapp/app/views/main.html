@@ -1,0 +1,15 @@
+<div>
+    <!-- Header -->
+    <div id="header" style="height:{{theme.headerHeight}}" ng-include='"views/theme/" + theme.name + "/header.html"'></div>
+    <!-- Navigation -->
+    <aside id="menu" ng-include="'views/theme/' + theme.name + '/navigation.html'"></aside>
+    <!-- Main Wrapper -->
+    <div id="wrapper">
+        <div class="place" ng-include="'views/theme/' + theme.name + '/breadcrumb.html'"></div>
+        <div ui-view></div>
+        <!-- Right sidebar -->
+        <div id="right-sidebar" ng-include="'views/theme/' + theme.name + '/right_sidebar.html'" class="sidebar-open" ng-show="rightSidebar"></div>
+        <!-- Footer -->
+        <footer class="footer" ng-include="'views/theme/' + theme.name + '/footer.html'"></footer>
+    </div>
+</div>

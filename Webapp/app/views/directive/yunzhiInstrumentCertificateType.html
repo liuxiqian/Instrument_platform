@@ -1,0 +1,6 @@
+<ui-select ng-model="instrumentCertificateType.selected" theme="bootstrap" ng-disabled="disabled">
+    <ui-select-match placeholder="请选择">{{$select.selected.name}}</ui-select-match>
+    <ui-select-choices repeat="instrumentCertificateType in instrumentCertificateTypes | propsFilter: {name: $select.search, pinyin: $select.search}">
+        <div ng-bind-html="instrumentCertificateType.name | highlight: $select.search"></div>
+    </ui-select-choices>
+</ui-select>

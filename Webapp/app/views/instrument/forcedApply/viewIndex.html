@@ -1,0 +1,55 @@
+<div ng-controller="InstrumentForcedapplyViewindexCtrl">
+    <div class="row">
+        <div class="col-md-12">
+            <br>
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="table-layout: fixed; width: 100%">
+                <thead>
+                <tr>
+                    <th width="1%" ng-show="showCheckAll">
+                        <yunzhi-check-all data-lists="work.mandatoryInstrumentApply.mandatoryInstruments" data-value="false"></yunzhi-check-all>
+                    </th>
+                    <th width="2%">学科类别</th>
+                    <th width="2%">一级类别</th>
+                    <th width="2%">二级类别</th>
+                    <th width="2%">器具名称</th>
+                    <th width="2%">出厂名称</th>
+                    <th width="2%">型号规格</th>
+                    <th width="2%">用途</th>
+                    <th width="2%">测量范围</th>
+                    <th width="2%">精确度等级</th>
+                    <th width="2%">制造单位</th>
+                    <th width="2%">出厂编号</th>
+                    <th width="2%">安装地点</th>
+                    <th width="2%">许可证号</th>
+                    <th width="2%">状态</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="object in work.mandatoryInstrumentApply.mandatoryInstruments | orderBy: 'id'">
+                    <td ng-show="showCheckAll">
+                        <input icheck type="checkbox" ng-model="object._checked">
+                    </td>
+                    <td style="word-wrap: break-word;">
+                        {{object.instrumentType.instrumentFirstLevelType.discipline.name}}
+                    </td>
+                    <td style="word-wrap: break-word;">{{object.instrumentType.instrumentFirstLevelType.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.instrumentType.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.outOfFactoryName}}</td>
+                    <td style="word-wrap: break-word;">{{object.specificationName}}</td>
+                    <td style="word-wrap: break-word;">{{object.purpose.name}}</td>
+                    <td style="word-wrap: break-word;">
+                        {{object.minMeasureScale | yunzhiMeasureScale: object.maxMeasureScale}}
+                    </td>
+                    <td style="word-wrap: break-word;">{{object.accuracy.value}}</td>
+                    <td style="word-wrap: break-word;">{{object.generativeDepartment.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.serialNum}}</td>
+                    <td style="word-wrap: break-word;">{{object.fixSite}}</td>
+                    <td style="word-wrap: break-word;">{{object.licenseNum}}</td>
+                    <td style="word-wrap: break-word;" ng-bind-html="object | MandatoryInstrumentStatus"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

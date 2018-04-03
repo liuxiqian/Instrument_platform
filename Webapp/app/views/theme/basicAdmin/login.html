@@ -1,0 +1,45 @@
+﻿<div style="background-color:#1c77ac; background-image:url('/style/' + {{theme.name}} + '/images/light.png'); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
+    <div class="container-fuild">
+        <div class="row loginbody">
+            <div class="col-md-12 systemlogo">
+            </div>
+            <div class="col-md-12">
+
+                <div class="loginbox">
+                    <ui-view>
+                        <form ng-submit="login()" name="loginForm">
+                            <div class="form-group">
+                                <label class="control-label" for="username">用户名</label>
+                                <input type="text" placeholder="请输入您的用户名" title="请输入您的用户名" required="required"
+                                       ng-model="user.username" id="username" class="form-control">
+                                <span class="help-block small"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">密码</label>
+                                <input type="password" title="请输入您的密码" placeholder="请输入您的密码" required="required"
+                                       id="password" ng-model="user.password" class="form-control">
+                                <span class="help-block small"></span>
+                            </div>
+                            <button ng-hide="loginForm.$submitted" class="btn btn-success btn-block" type="submit">登 录
+                            </button>
+                            <button ng-show="loginForm.$submitted" class="btn btn-success btn-block" type="button"
+                                    ng-disabled="true">正在登录...
+                            </button>
+                            <div class="form-group text-right">
+                                <br>
+                                <a ui-sref="login.resetPassword" class="text-right">忘记密码</a>
+                            </div>
+                        </form>
+                    </ui-view>
+                </div>
+                <div class="cloud" ng-style="cloudStyle"></div>
+            </div>
+            <div class="col-md-12">
+                <div class="loginbm"> {{config.beginYear}} - {{config.currentYear}} Copyright
+                    <strong>{{config.owner}}</strong>&nbsp;&nbsp;<small>技术支持：<span
+                        ng-bind-html="config.technicalSupport"></span></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

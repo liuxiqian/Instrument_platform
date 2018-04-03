@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <form class="form-horizontal" name="myForm" ng-submit="showData()">
+                    <div class="col-md-4">
+                        <label class="col-sm-4" for="repeatSelect"> 申请类型： </label>
+                        <div class="col-md-7">
+                            <select class="form-control m-b" id="repeatSelect"  ng-model="applyType.id" ng-options="applyType.id as applyType.name for applyType in applyTypes">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-xs-2 col-xs-offset-10">
+                    <a ui-sref="system.applyFieldAdd({applyTypeId: applyType.id})"><button class="btn btn-info btn-sm" type="button"><i class="fa fa-plus">&nbsp;&nbsp;新增</i></button></a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer"
+                     id="DataTables_Table_0_wrapper">
+                    <div class="row">
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>编号</th>
+                            <th>名称</th>
+                            <th>标签名</th>
+                            <th>描述</th>
+                            <th>权重</th>
+                            <th>字段类型</th>
+                            <th>是否为必填字段</th>
+                            <th>警告信息</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="data in datas">
+                            <td style="word-wrap: break-word">{{$index+1}}</td>
+                            <td style="word-wrap: break-word">{{data.name}}</td>
+                            <td style="word-wrap: break-word">{{data.label}}</td>
+                            <td style="word-wrap: break-word">{{data.description}}</td>
+                            <td style="word-wrap: break-word">{{data.weight}}</td>
+                            <td style="word-wrap: break-word">{{data.type}}</td>
+                            <td style="word-wrap: break-word">{{data.required | ApplyField}}</td>
+                            <td style="word-wrap: break-word">{{data.warnMessage}}</td>
+                            <td style="word-wrap: break-word">
+                                <yunzhi-access data-route="system.applyType"><a ui-sref="system.applyFieldEdit({id: data.id})" class="btn btn-info btn-xs"><i class="fa fa-paste"></i>&nbsp;编辑</a></yunzhi-access>
+                                <button class="btn btn-xs btn-danger" ng-click="delete($index, data.id)"><i class="fa fa-trash-o"></i>&nbsp;删除
+                                </button>&nbsp;
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

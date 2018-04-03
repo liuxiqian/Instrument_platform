@@ -1,0 +1,96 @@
+<div class="table-responsive">
+    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+        <div class="row">
+            <div class="col-sm-4">
+                <yunzhi-page-size ng-model="params.size" data-reload="reloadBySize"></yunzhi-page-size>
+            </div>
+            <div class="col-sm-4">
+                 <div class="dt-buttons btn-group">
+                     <button ng-show="showApplyForCheck" class="btn btn-default buttons-print btn-sm" tabindex="0" aria-controls="DataTables_Table_0" ng-click="applyForCheck()"><span>申请检定</span></button>
+                 </div>
+            </div>
+            <div class="col-sm-4 text-right">
+                <div class="dt-buttons btn-group">
+
+                    <button ng-hide="hideExportExcel" class="btn btn-default buttons-print btn-sm" tabindex="0" aria-controls="DataTables_Table_0" ng-click="exportExcel()"><span>导出EXCEL</span></button>
+
+                </div>
+            </div>
+        </div>
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th width="1%" ng-show="showCheckAll"><yunzhi-check-all data-lists="data.content"></yunzhi-check-all>全选</th>
+                    <th width="2%">系统编号</th>
+                    <th width="2%" ng-if="showShi()">市</th>
+                    <th width="2%" ng-if="showQuxian()">区县</th>
+                    <th width="2%" ng-if="showQijuyonghu()">器具用户</th>
+                    <th width="2%">器具名称</th>
+                    <th width="2%">出厂名称</th>
+                    <th width="2%">学科类别</th>
+                    <th width="2%">一级类别</th>
+                    <th width="2%">二级类别</th>
+                    <th width="2%">用途</th>
+                    <th width="2%">测量范围</th>
+                    <th width="2%">准确度等级</th>
+                    <th width="2%">规格型号</th>
+                    <th width="2%">制造单位</th>
+                    <th width="2%">出厂编号</th>
+                    <th width="2%">安装地点</th>
+                    <th width="2%">许可证号</th>
+                    <!--<th ng-hide="hideCheckDepartment()" width="2%">检定机构</th>-->
+                    <!--&lt;!&ndash; <th width="2%">检定周期</th> &ndash;&gt;-->
+                    <!--<th width="3%">计划检定日期</th>-->
+                    <!-- <th width="3.5%">检定信息</th> -->
+                    <th width="2%">状态</th>
+                    <th width="2%" ng-show="isShow.operation">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="object in data.content" ng-hide="object.hide">
+                    <td ng-show="showCheckAll"><input icheck type="checkbox" ng-model="object._checked"></td>
+                    <td style="word-wrap: break-word;">{{object.id}}</td>
+                    <td ng-if="showShi()">{{object.department.district | yunzhiDistrictName : 'shi'}}</td>
+                    <td ng-if="showQuxian()">{{object.department.district | yunzhiDistrictName : 'quxian'}}</td>
+                    <td style="word-wrap: break-word;" ng-if="showQijuyonghu()">{{object.department.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.outOfFactoryName}}</td>
+                    <td style="word-wrap: break-word;">
+                        {{object.instrumentType.instrumentFirstLevelType.discipline.name}}
+                    </td>
+                    <td style="word-wrap: break-word;">
+                        {{object.instrumentType.instrumentFirstLevelType.name}}
+                    </td>
+                    <td style="word-wrap: break-word;">{{object.instrumentType.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.purpose.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.minMeasureScale | yunzhiMeasureScale: object.maxMeasureScale}}</td>
+                    <td style="word-wrap: break-word;">{{object.accuracy.value}}</td>
+                    <td style="word-wrap: break-word;">{{object.specificationName}}</td>
+                    <td style="word-wrap: break-word;">{{object.generativeDepartment.name}}</td>
+                    <td style="word-wrap: break-word;">{{object.serialNum}}</td>
+                    <td style="word-wrap: break-word;">{{object.fixSite}}</td>
+                    <td style="word-wrap: break-word;">{{object.licenseNum}}</td>
+                    <!--<td ng-hide="hideCheckDepartment()" style="word-wrap: break-word;">{{object.checkDepartment.name}}</td>-->
+                    <!--&lt;!&ndash; <td style="word-wrap: break-word;">{{object | CheckCycle}}</td> &ndash;&gt;-->
+                    <!--<td style="word-wrap: break-word;">{{object | mandatoryInstrumentNextCheckDate | date}} </td>-->
+                    <!-- <td style="word-wrap: break-word;">
+                        <!--查询的查看检定信息调的是检定信息综合查询的-->
+                    <!-- <yunzhi-access data-route="standard.File">
+                            <button ng-click="detailIntegratedAudit(object)"
+                                    ng-hide="isShow.link" class="btn btn-xs btn-outline btn-info"><i
+                                    class="pe-7s-look"></i>&nbsp;查看
+                            </button>
+                        </yunzhi-access> -->
+                    <!-- </td> -->
+                    <td style="word-wrap: break-word;" ng-bind-html="object | MandatoryInstrumentStatus"></td>
+                    <td style="word-wrap: break-word;" ng-show="isShow.operation">
+                        <a ui-sref="mandatory.IntegratedEdit({id: object.id})" class="btn btn-xs btn-info"
+                           ng-hide="isShow.appoint"> <i class="fa fa-paste"></i>&nbsp;编辑</a>&nbsp;&nbsp;
+                        <!--<button ng-show="showDelete(object)" ng-click="delete(object)" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i>&nbsp;删除</button>&nbsp;&nbsp;-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <yunzhi-page data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements" data-reload="reloadByPage"></yunzhi-page>
+    </div>
+</div>

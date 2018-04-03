@@ -1,0 +1,98 @@
+<ui-view>
+    <form class="form-horizontal ng-pristine ng-valid" ng-submit="reload()">
+        <div class="row">
+            <div ng-show="isShowInstrumentUser">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">器具用户：</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" ng-model="params.instrumentUserName">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">申请起始日期：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-date ng-model="params.startApplyDate" required="false"></yunzhi-date>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">申请终止日期：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-date ng-model="params.endApplyDate" required="false"></yunzhi-date>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+	<div class="row">
+		<div class="col-md-12 text-right">
+			<a ng-show="showApplyButton" ui-sref="InstrumentForcedTimeOutCheckApplyParent.InstrumentForcedTimeOutCheckApplyIndex.Add({mandatoryInstrumentSet: []})">
+				<button class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus">&nbsp;&nbsp;发起超期检定申请</i></button>
+			</a>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<!-- 一级模板 -->
+			<div class="table-responsive">
+				<div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+					<div class="row">
+						<div class="col-sm-4">
+							<yunzhi-page-size ng-model="params.size" data-reload="reloadBySize"></yunzhi-page-size>
+						</div>
+						<div class="col-sm-4">
+						</div>
+					</div>
+					<table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>申请单位</th>
+								<th>申请日期</th>
+								<th>是否审核</th>
+								<th>审核部门</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="_data in data.content">
+								<td>{{data.number * data.size + $index+1}}</td>
+								<td>{{_data.work.apply.department.name}}</td>
+								<td>{{_data.work.apply.applyTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+								<td>
+									<span class="badge" ng-class="{'badge-success': _data.work.apply.done, 'badge-danger': !_data.work.apply.done }">{{_data.work.apply.done | workIsDone}}</span>
+								</td>
+								<td>{{_data.work.apply.auditingDepartment.name}}</td>
+								<td>
+									<a ng-show="showView(_data.work)" class="btn btn-xs btn-outline btn-info" ui-sref="InstrumentForcedTimeOutCheckApplyParent.InstrumentForcedTimeOutCheckApplyIndex.view({workId: _data.work.id})">
+                                        <i class="pe-7s-look"></i>&nbsp;查看</a>
+									<a class="btn btn-xs btn-outline btn-primary2" ng-show="showAudit(_data.work)" ui-sref="InstrumentForcedTimeOutCheckApplyParent.InstrumentForcedTimeOutCheckApplyIndex.audit({workId: _data.work.id})">
+                                        <i class="fa fa-check-square-o"></i>&nbsp;办理
+                                    </a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<yunzhi-page data-reload="reloadByPage" data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements"></yunzhi-page>
+				</div>
+			</div>
+		</div>
+	</div>
+</ui-view>

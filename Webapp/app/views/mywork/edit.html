@@ -1,0 +1,23 @@
+<div ng-if="data.work.id" ng-include="'views/' + data.work.apply.applyType.viewDirectory + 'editIndex.html'" ng-init="work = data.work">
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal" name="applyForm" ng-submit="updateApply()">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">申请类型</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">{{data.work.apply.applyType.description}}</p>
+                </div>
+            </div>
+            <!--使用ng-include引用附加字段-->
+            <div data-ng-include src="'views/instrument/forcedApply/auditFormFields.html'">
+            </div>
+                
+            <!-- 申请附加字段 -->
+            <yunzhi-apply-field-records data-work="data.work"></yunzhi-apply-field-records>
+            <!--审核意见与提交按钮-->
+            <yunzhi-work-choose-and-submit-button data-work="data.work" data-audit-type="data.auditType" data-next-work="data.nextWork" data-show-back="showBack"></yunzhi-work-choose-and-submit-button>
+        </form>
+    </div>
+</div>

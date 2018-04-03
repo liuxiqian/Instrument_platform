@@ -1,0 +1,81 @@
+<ui-view>
+    <form class="form-horizontal ng-pristine ng-valid" ng-submit="reload()">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">申请起始日期：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-date ng-model="params.startApplyDate" required="false"></yunzhi-date>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">申请终止日期：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-date ng-model="params.endApplyDate" required="false"></yunzhi-date>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8">
+                        <button type="submit" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <a ng-show="showApplyButton" ui-sref="InstrumentForcedTimeOutCheckApplyParent.InstrumentForcedTimeOutCheckApplyIndex.Add">
+                <button class="btn btn-primary btn-sm" type="button"><i class="fa fa-plus">&nbsp;&nbsp;发起超期检定申请</i></button>
+            </a>
+        </div>
+    </div>
+    <div class="table">
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+            <div class="row" ng-hide="showPage">
+                <div class="col-sm-4">
+                    <yunzhi-page-size ng-model="params.size" data-reload="reloadBySize"></yunzhi-page-size>
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>申请日期</th>
+                    <th>申请单位</th>
+                    <th>申请人</th>
+                    <th>申请人电话</th>
+                    <th>是否已回复</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key, object) in data.content">
+                    <td>{{data.number * data.size + key + 1}}</td>
+                    <td>{{object.work.apply.applyTime | date}}</td>
+                    <td>{{object.work.apply.department.name}}</td>
+                    <td>{{object.work.apply.createUser.name}}</td>
+                    <td>{{object.work.apply.createUser.mobile}}</td>
+                    <td><span class="badge" ng-class="{'badge-success': object.work.apply.done, 'badge-danger': !object.work.apply.done}">{{object.work.apply.done | yunzhiTrueOrFalse}}</span></td>
+                    <td>
+                        <a ng-show="object.work.apply.done" class="btn btn-xs btn-outline btn-info"  ui-sref="mandatory.checkApplyForTechnicalInstitution.view({workId: object.work.id})"><i class="pe-7s-look"></i>&nbsp;查看</a>
+                        <a ng-show="!object.work.apply.done" class="btn btn-xs btn-outline btn-primary2" ui-sref="mandatory.checkApplyForTechnicalInstitution.audit({workId: object.work.id})"><i class="pe-7s-back"></i>&nbsp;回复</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <yunzhi-page data-reload="reloadByPage" data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements"></yunzhi-page>
+        </div>
+    </div>
+</ui-view>
+

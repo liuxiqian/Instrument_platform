@@ -1,0 +1,116 @@
+<ui-view>
+    <form class="form-horizontal ng-pristine ng-valid">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">年度：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-multi-year ng-model="params.years"></yunzhi-multi-year>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">区域：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-district ng-model="params.district"></yunzhi-district>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" ng-if="showInstrumentUser">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">器具用户：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-instrument-user data-config="{departmentType: '器具用户'}" data-district="params.district" ng-model="params.instrumentUserDepartment"></yunzhi-instrument-user>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">用途：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-purpose ng-model="params.purpose"></yunzhi-purpose>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label">器具名称：</label>
+                    <div class="col-sm-8">
+                        <yunzhi-instrument-name ng-model="params.instrumentType"></yunzhi-instrument-name>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="col-sm-4 control-label"></label>
+                    <div class="col-sm-8" ng-if="showByYears">
+                        <button type="submit" ng-click="queryAllCheckedRateInfoByYears()" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;查询
+                        </button>
+                    </div>
+                    <div class="col-sm-8" ng-if="showByYear">
+                        <button type="submit" ng-click="queryAllCheckedRateInfoByYear()" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive">
+                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+                    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>年度</th>
+                                <th>省</th>
+                                <th>市</th>
+                                <th>县</th>
+                                <th>器具用户</th>
+                                <th>用途</th>
+                                <th>器具名称</th>
+                                <th>器具总数</th>
+                                <th>受检总数</th>
+                                <th>受检率</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="checkedRateInfo in checkedRateInfos">
+                                <td>{{ checkedRateInfo.year }}</td>
+                                <td>{{ checkedRateInfo.provinceDistrict.name }}</td>
+                                <td>{{ checkedRateInfo.cityDistrict.name }}</td>
+                                <td>{{ checkedRateInfo.countyDistrict.name }}</td>
+                                <td>{{ checkedRateInfo.instrumentUserDepartment.name }}</td>
+                                <td>{{ checkedRateInfo.purpose.name }}</td>
+                                <td>{{ checkedRateInfo.instrumentType.name }}</td>
+                                <td>{{ checkedRateInfo.instrumentTotal }}</td>
+                                <td>{{ checkedRateInfo.checkedTotal }}</td>
+                                <td>{{ checkedRateInfo.checkedTotal / checkedRateInfo.instrumentTotal | percent }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- 多年度统计图表 -->
+        <div class="col-lg-12" ng-if="showByYears && showYearsChart">
+            
+            <yunzhi-chart-bar data-chart-name = "chartName" data-chart-xdata="chartXData" data-chart-ymax="chartYMax" data-chart-ymin="chartYMin" data-chart-dar="chartDarData"></yunzhi-chart-bar>
+        </div>
+        <!-- 多区域统计图表 -->
+        <div class="col-lg-12" ng-if="showByYear && showYearChart">
+            
+            <yunzhi-chart-bar data-chart-name = "chartName" data-chart-xdata="chartXData" data-chart-ymax="chartYMax" data-chart-ymin="chartYMin" data-chart-dar="chartDarData"></yunzhi-chart-bar>
+        </div>
+    </div>
+</ui-view>

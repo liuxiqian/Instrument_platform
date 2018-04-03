@@ -1,0 +1,9 @@
+<dl class='leftmenu'>
+    <dd ng-repeat="menu in menus | orderBy: 'weight'">
+        <a ng-if="!hasChildren(menu) && menu.show" ui-sref-active="active" ui-sref="{{getRoute(menu)}}" ng-click="clickedParentMenu(menu)"><div class="title">&nbsp;&nbsp;&nbsp;&nbsp;{{menu.name}}</div></a>
+        <a ng-if="hasChildren(menu) && menu.show" ng-click="clickedParentMenu(menu)"><div class="title">&nbsp;&nbsp;&nbsp;&nbsp;{{menu.name}}</div></a>
+        <ul ng-if="hasChildren(menu) && menu.show" class="menuson sample-show-hide" ng-show="isActive(menu)">
+            <li ui-sref-active="active" ng-if="_menu.show" ng-repeat="_menu in menu._children | orderBy: 'weight'" ng-class="{active: _menu.isClicked}" ng-click="clicked(_menu)"><cite></cite><a ui-sref="{{getRoute(_menu)}}">{{_menu.name}}</a><i></i></i></li>
+        </ul>
+    </dd>
+</dl>

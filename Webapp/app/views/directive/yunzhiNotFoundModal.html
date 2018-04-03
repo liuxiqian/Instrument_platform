@@ -1,0 +1,16 @@
+<div class="inmodal">
+    <div class="color-line"></div>
+    <div class="modal-body">
+        <ng-form class="form-horizontal">
+            <h2 align="center">{{title}}</h2>
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <input type="text" class="form-control" ng-model="name">
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="ok()">确定</button>
+    </div>
+</div>

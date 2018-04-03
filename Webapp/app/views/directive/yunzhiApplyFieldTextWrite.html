@@ -1,0 +1,11 @@
+<div class="form-group">
+    <label class="col-sm-4 control-label">{{$parent.ngModel.applyField.label}}</label>
+    <div class="col-sm-8">
+        <input type="text" class="form-control" ng-model="ngModel.value" name="{{$parent.ngModel.applyField.name}}" ng-required="$parent.ngModel.applyField.required">
+        <span class="help-block m-b-none">{{$parent.ngModel.applyField.description}}</span>
+        <div class="m-t-xs" ng-show="applyForm.contactName.$invalid && applyForm.contactName.$touched">
+            <span class="text-danger" ng-show="applyForm.contactName.$error "><i
+                                class="fa fa-exclamation-triangle"></i> {{$parent.ngModel.applyField.warnMessage}}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<nav role="navigation">
+    <div style="background:url(/styles/{{theme.name}}/images/topbg.gif) repeat-x;">
+        <div class="topleft">
+
+        </div>
+
+        <div class="topright">
+            <ul>
+                <li>
+                    <span ng-switch="user.department.departmentType.name">
+                        <img src="/styles/{{theme.name}}/images/help.png" title="帮助" class="helpimg"/>
+                        <a href="http://www.mengyunzhi.com/index.php/2017/12/11/instructions-of-management/" ng-switch-when="管理部门">帮助</a>
+                        <a href="http://www.mengyunzhi.com/index.php/2017/12/11/instructions-of-technical-structure/" ng-switch-when="技术机构">帮助</a>
+                        <a href="http://www.mengyunzhi.com/index.php/2017/12/11/instructions-of-instrument-user/" ng-switch-when="器具用户">帮助</a>
+                    </span>
+                </li>
+                <li><a ui-sref="main.about">关于</a></li>
+                <li>
+                    <a id="logout" href="javascript:void(0);" ng-click="logout()" title="注销">
+                        注销
+                    </a>
+                </li>
+
+            </ul>
+
+            <div id="login" class="user">
+                <a ui-sref="Personal.PersonalInfoManage" title="个人中心"><span>
+                    个人中心</span>
+                </a>
+                <a ui-sref="myMessage.unReadMessage" title="消息"><span>
+                    消息</span>
+                    <b><yunzhi-un-read-message-count></yunzhi-un-read-message-count></b>
+                </a>
+            </div>
+
+        </div>
+        <br style="clear:both;"/>
+    </div>
+</nav>

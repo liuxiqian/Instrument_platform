@@ -1,0 +1,294 @@
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 text-center m-t-md">
+            <h1>
+                欢迎使用本系统
+                <small>{{config.title}}欢迎您!</small>
+            </h1>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-lg-12 ">
+            <div class="hpanel">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    系统信息
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <div class="small">
+                                <i class="fa fa-bolt"></i> 登录统计
+                            </div>
+                            <div>
+                                <h1 class="font-extra-bold m-t-xl m-b-xs">
+                                    226,802
+                                </h1>
+                                <small>本年度登录次数累计</small>
+                            </div>
+                            <div class="small m-t-xl">
+                                <i class="fa fa-clock-o"></i> 自2017年1月1日起
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="text-center small">
+                                <i class="fa fa-laptop"></i> 月登录环比统计 (2017年5月)
+                            </div>
+                            <div class="flot-chart" style="height: 160px">
+                                <div flot class="flot-chart-content" dataset="chartUsersData" options="chartUsersOptions"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center">
+                            <div class="small">
+                                <i class="fa fa-clock-o"></i> 系统已稳定运行
+                            </div>
+                            <div>
+                                <h1 class="font-extra-bold m-t-xl m-b-xs">
+                                    3,652 天
+                                </h1>
+                                <small>520 周</small>
+                            </div>
+                            <div class="small m-t-xl">
+                                <i class="fa fa-clock-o"></i> 系统上线日期：2007年3月18日
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <!--<span class="pull-right">-->
+    <!--You have two new messages from <a href="">Monica Bolt</a>-->
+    <!--</span>-->
+    <!-- 更新时间:2017年5月18日
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-lg-6" ng-controller="DashboardovertimewarnCtrl" ng-if="user.department.departmentType.pinyin === 'qijuyonghu'">
+            <div class="hpanel stats">
+                <div class="panel-heading">
+                    超期预警列表
+                </div>
+                <div class="panel-body h-300">
+                    <div class="col-lg-12">
+                        <!-- 一级超期模板 -->
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>系统编号</th>
+                                            <th>学科类别</th>
+                                            <th>一级类别</th>
+                                            <th>器具类别</th>
+                                            <th>器具名称</th>
+                                            <th>有效期至</th>
+                                            <th>剩余日期</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="_data in data.content">
+                                            <td>{{data.number * data.size + $index+1}}</td>
+                                            <td>{{_data.id}}</td>
+                                            <td>{{_data.instrumentType.instrumentFirstLevelType.discipline.name}}</td>
+                                            <td>{{_data.instrumentType.instrumentFirstLevelType.name}}</td>
+                                            <td>{{_data.instrumentType.name}}</td>
+                                            <td>{{_data.name}}</td>
+                                            <td>{{_data.nextCheckDate | date}}</td>
+                                            <td ng-bind-html="_data.nextCheckDate | yunzhiOverdueRemainDay"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <yunzhi-page data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements" data-reload="reloadByPage"></yunzhi-page>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" ng-controller="DashboardovertimeCtrl" ng-if="user.department.departmentType.pinyin === 'qijuyonghu'">
+            <div class="hpanel stats">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    超期列表
+                </div>
+                <div class="panel-body h-300">
+                    <div class="col-lg-12">
+                        <!-- 一级超期模板 -->
+                        <div class="table-responsive">
+                            <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+                                <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>系统编号</th>
+                                            <th>学科类别</th>
+                                            <th>一级类别</th>
+                                            <th>器具类别</th>
+                                            <th>器具名称</th>
+                                            <th>有效期至</th>
+                                            <th>已超期天数</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="_data in data.content">
+                                            <td>{{data.number * data.size + $index+1}}</td>
+                                            <td>{{_data.id}}</td>
+                                            <td>{{_data.instrumentType.instrumentFirstLevelType.discipline.name}}</td>
+                                            <td>{{_data.instrumentType.instrumentFirstLevelType.name}}</td>
+                                            <td>{{_data.instrumentType.name}}</td>
+                                            <td>{{_data.name}}</td>
+                                            <td>{{_data.nextCheckDate | date}}</td>
+                                            <td>{{_data.nextCheckDate | yunzhiCompareCurrentDate}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <yunzhi-page data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements" data-reload="reloadByPage"></yunzhi-page>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" ng-controller="DashboardunhandlCtrl">
+            <div class="hpanel stats">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    待办工作列表
+                </div>
+                <div class="panel-body h-300">
+                    <div class="col-lg-12">
+                        <ng-include src="'views/mywork/baseIndex.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" ng-controller="DashboardhandlingCtrl">
+            <div class="hpanel stats">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    在办工作列表
+                </div>
+                <div class="panel-body h-300">
+                    <div class="col-lg-12">
+                        <ng-include src="'views/mywork/baseIndex.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" ng-controller="StandardWarnCtrl" ng-if="user.department.departmentType.pinyin === 'jishujigou'">
+            <div class="hpanel stats">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    标准器预警列表
+                </div>
+                <div class="panel-body h-300">
+                    <div class="col-lg-12">
+                        <ng-include src="'views/standardWarn.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6" ng-controller="StandardAlarmCtrl" ng-if="user.department.departmentType.pinyin === 'jishujigou'">
+            <div class="hpanel stats">
+                <div class="panel-heading">
+                    <div panel-tools></div>
+                    标准器报警列表
+                </div>
+                <div class="panel-body h-300">
+                    <div class="col-lg-12">
+                        <ng-include src="'views/standardAlarm.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
+        <div class="col-lg-3">
+            <div class="hpanel">
+                <div class="panel-body text-center h-200">
+                    <i class="pe-7s-graph1 fa-4x"></i>
+                    <h1 class="m-xs">1 206</h1>
+                    <h3 class="font-extra-bold no-margins text-success">
+                        器具总数
+                    </h3>
+                    <small>系统内所有器具总数（不含报废器具）</small>
+                </div>
+                <div class="panel-footer">
+                    更新时间:2017年5月18日
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="hpanel stats">
+                <div class="panel-body">
+                    <div class="stats-title pull-left">
+                        <h4>一次合格率</h4>
+                    </div>
+                    <c3chart bindto-id="gauge-plot2-chart">
+                        <chart-colors color-pattern="#CFCFCF,#62cb31" />
+                        <chart-column column-id="一次合格率" column-values="85" column-type="gauge" />
+                        <chart-gauge min="0" max="100" units="" width="39" />
+                    </c3chart>
+                </div>
+                <div class="panel-footer">
+                    统计周期：<strong>2017</strong>年度，统计区域：<strong>廊坊市</strong>，统计范围：<strong>强检器具</strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="hpanel stats">
+                <div class="panel-body h-200">
+                    <div class="stats-title pull-left">
+                        <h4>检定数据</h4>
+                    </div>
+                    <div class="stats-icon pull-right">
+                        <i class="pe-7s-monitor fa-4x"></i>
+                    </div>
+                    <div class="m-t-xl">
+                        <h1 class="text-success">860,032</h1>
+                        <small>一次性检定合格：<strong>850,012</strong></small>
+                        <br/>
+                        <small>一次性检定不合格：<strong>542</strong></small>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    统计周期：2017年度
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="row">
+        <div class="col-lg-3">
+            <div class="hpanel stats">
+                <div class="panel-body h-300">
+                    <div id="{{echarts.pieId}}"></div>
+                </div>
+                <div class="panel-footer">
+                    合格次数：一次性合格次数 + 非一次性合格次数
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="hpanel stats">
+                <div class="panel-body h-300">
+                    <div id="{{echarts.barId}}"></div>
+                </div>
+                <div class="panel-footer">
+                    一次性合格率 = 一次性合格次数 / 检定总次数
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="hpanel stats">
+                <div class="panel-body h-300">
+                    <div id="{{echarts.oneOffUpToStandardRateId}}"></div>
+                </div>
+                <div class="panel-footer">
+                    一次性合格率 = 一次性合格次数 / 检定总次数
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>

@@ -1,0 +1,18 @@
+<div class="row" ng-controller="RegistrationCtrl">
+<div class="row"></div>
+    <div class="color-line"></div>
+    <div class="back-link">
+        <a ui-sref="login" class="btn btn-primary">返回登录界面</a>
+    </div>
+    <div class="register-container">
+        <div class="row">
+            <div ng-include="'views/department/edit1.html'"></div>
+            <div ng-include="'views/department/edit2.html'"></div>
+            <div ng-include="'views/department/edit3.html'"></div>
+            <div class="col-md-12 text-center">
+                {{config.beginYear}} - {{config.currentYear}} Copyright <strong>{{config.owner}}</strong>
+                <br /><small>技术支持：<span ng-bind-html="config.technicalSupport"></span> </small>
+            </div>
+        </div>
+    </div>
+</div>

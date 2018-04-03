@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="form-group col-lg-6">
+        <label><span class="yunzhi-star">*</span>请选择区域</label>
+        <yunzhi-district ng-model="$parent.data.user.department.district" ng-if="all" data-config="{type: 'all'}"></yunzhi-district>
+        <yunzhi-district ng-model="$parent.data.user.department.district" ng-if="local"></yunzhi-district>
+    </div>
+    <div class="form-group col-lg-6" ng-show="showDeapartmentType">
+        <label><span class="yunzhi-star">*</span>请选择用户类型</label>
+        <yunzhi-department-type name="departmentType" ng-model="data.user.department.departmentType" required></yunzhi-department-type>
+    </div>
+    <div class="form-group col-lg-6">
+        <label><span class="yunzhi-star">*</span>单位名称</label>
+        <input name="departmentName" type="text" placeholder="请输入单位名称" title="请输入单位名称" ng-model="data.user.department.name"
+               class="form-control" ng-blur="names=true" ng-focus="names=false" required>
+        <span class="text-danger" ng-show="myForm.name.$error.required && names">必填项</span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label><span class="yunzhi-star">*</span>统一社会信用代码</label>
+        <input name="code" type="text" placeholder="请输入统一社会信用代码" title="请输入统一社会信用代码"
+               ng-model="data.user.department.code" class="form-control" ng-blur="codes=true"
+               ng-focus="codes=false" required>
+        <span class="text-danger" ng-show="myForm.code.$error.required && codes">必填项</span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label><span class="yunzhi-star">*</span>地址</label>
+        <input name="address" type="text" placeholder="请输入地址" title="请输入地址"
+               ng-model="data.user.department.address" class="form-control" ng-blur="addresses=true"
+               ng-focus="addresses=false" required>
+        <span class="text-danger" ng-show="myForm.address.$error.required && addresses">必填项</span>
+    </div>
+    <div class="form-group col-lg-6">
+        <label><span class="yunzhi-star">*</span>邮政编码</label>
+        <input name="postalCode" type="text" placeholder="请输入邮政编码" title="请输入邮政编码"
+               ng-model="data.user.department.postalCode" class="form-control" ng-blur="numbers=true"
+               ng-focus="numbers=false" required>
+        <span class="text-danger" ng-show="myForm.postalCode.$error.required && numbers">必填项</span>
+    </div>
+    <span ng-if="departmentTypes">
+        <div class="form-group col-lg-6">
+            <label><span class="yunzhi-star">*</span>法人姓名</label>
+            <input name="legalName" type="text" placeholder="请输入法人姓名" title="请输入法人姓名"
+                   ng-model="data.user.department.legalName" class="form-control"
+                   ng-blur="person=true" ng-focus="person=false" required>
+            <span class="text-danger"
+                  ng-show="myForm.legalName.$error.required && person">必填项</span>
+        </div>
+        <div class="form-group col-lg-6">
+            <label><span class="yunzhi-star">*</span>法人联系方式</label>
+            <input name="legalPhone" type="text" placeholder="请输入法人联系方式" title="请输入法人联系方式"
+                   ng-model="data.user.department.legalPhone" class="form-control"
+                   ng-blur="line=true" ng-pattern="regex" required>
+            <span class="text-danger"
+                  ng-show="myForm.legalPhone.$error.required && line">必填项</span>
+            <span class="text-danger" ng-show="myForm.legalPhone.$error.pattern && line">请输入正确的电话号码</span>
+        </div>
+        <div class="form-group col-lg-6">
+            <label><span class="yunzhi-star">*</span>注册人姓名</label>
+            <input name="registrantName" type="text" placeholder="请输入注册人姓名" title="请输入注册人姓名"
+                   ng-model="data.user.department.registrantName" class="form-control"
+                   ng-blur="registration=true" ng-focus="registration=false" required>
+            <span class="text-danger"
+                  ng-show="myForm.registrantName.$error.required && registration">必填项</span>
+        </div>
+        <div class="form-group col-lg-6">
+            <label><span class="yunzhi-star">*</span>注册人手机</label>
+            <input name="registrantPhone" type="text" placeholder="请输入注册人联系方式"
+                   title="请输入注册人联系方式" ng-model="data.user.department.registrantPhone"
+                   class="form-control" ng-blur="phone=true" ng-pattern="regex" required>
+            <span class="text-danger" ng-show="myForm.registrantPhone.$error.required && phone">必填项</span>
+            <span class="text-danger" ng-show="myForm.registrantPhone.$error.pattern && phone">请输入正确的电话号码</span>
+        </div>
+    </span>
+</div>

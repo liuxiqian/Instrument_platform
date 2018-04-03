@@ -1,0 +1,50 @@
+<table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="table-layout: fixed; width: 100%">
+    <thead>
+        <tr>
+            <th width="1%">序号</th>
+            <th width="1%">系统编号</th>
+            <th width="2%">学科类别</th>
+            <th width="2%">一级类别</th>
+            <th width="2%">二级类别</th>
+            <th width="2%">器具名称</th>
+            <th width="2%">出厂名称</th>
+            <th width="2%">型号规格</th>
+            <th width="2%">用途</th>
+            <th width="2%">测量范围</th>
+            <th width="2%">精确度等级</th>
+            <th width="2%">制造单位</th>
+            <th width="2%">出厂编号</th>
+            <th width="2%">安装地点</th>
+            <th width="2%">许可证号</th>
+            <th width="7%" ng-show="isShowInstrumentCheckInfo">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(key, object) in $parent.work.apply.mandatoryInstrumentSet | orderBy: 'id'">
+            <td>{{key + 1}}</td>
+            <td>{{object.id}}</td>
+            <td style="word-wrap: break-word;">
+                {{object.instrumentType.instrumentFirstLevelType.discipline.name}}
+            </td>
+            <td style="word-wrap: break-word;">{{object.instrumentType.instrumentFirstLevelType.name}}</td>
+            <td style="word-wrap: break-word;">{{object.instrumentType.name}}</td>
+            <td style="word-wrap: break-word;">{{object.name}}</td>
+            <td style="word-wrap: break-word;">{{object.outOfFactoryName}}</td>
+            <td style="word-wrap: break-word;">{{object.specificationName}}</td>
+            <td style="word-wrap: break-word;">{{object.purpose.name}}</td>
+            <td style="word-wrap: break-word;">
+                {{object.minMeasureScale | yunzhiMeasureScale: object.maxMeasureScale}}
+            </td>
+            <td style="word-wrap: break-word;">{{object.accuracy.value}}</td>
+            <td style="word-wrap: break-word;">{{object.generativeDepartment.name}}</td>
+            <td style="word-wrap: break-word;">{{object.serialNum}}</td>
+            <td style="word-wrap: break-word;">{{object.fixSite}}</td>
+            <td style="word-wrap: break-word;">{{object.licenseNum}}</td>
+            <td ng-show="isShowInstrumentCheckInfo">
+                <a class="btn btn-xs btn-primary" ui-sref="mandatory.checkApplyForInstrumentUser.addInstrumentCheckInfo({mandatoryInstrument: object, mandatoryInstrumentCheckApplyId: $parent.work.apply.id})">
+                    <i class="fa fa-paste"></i>&nbsp;设置检定信息
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

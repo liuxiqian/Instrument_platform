@@ -1,0 +1,105 @@
+<!-- this is overdueCheckAply view -->
+<hr>
+<div class="row">
+    <form class="form-horizontal" name="form" ng-submit="submit()">
+        <div class="col-sm-5">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">申请编号:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{work.apply.id}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">申请单位:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{work.apply.department.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">申请人:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{work.apply.createUser.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">联系电话:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{work.apply.createUser.mobile}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">超期未检原因:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static ng-binding">{{work.apply.reason}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">指定申请截止日期:</label>
+                <div class="col-sm-8">
+                     <yunzhi-date ng-model="work.apply.latestCheckDate" data-required="work.apply.agree"></yunzhi-date>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">审核意见:</label>
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" ng-model="work.apply.opinion"></textarea>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <div class="col-sm-7 col-sm-push-5">
+                    <button class="btn btn-sm btn-success" ng-click="agree(true)"><i class="fa fa-check-square-o"></i>&nbsp;&nbsp;同意</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-sm btn-danger2" ng-click="agree(false)"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;不同意</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<hr>
+<table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="table-layout: fixed; width: 100%">
+    <thead>
+        <tr>
+            <th width="1%">序号</th>
+            <th width="2%">系统编号</th>
+            <th width="3%">学科类别</th>
+            <th width="3%">一级类别</th>
+            <th width="3%">二级类别</th>
+            <th width="3%">器具名称</th>
+            <th width="3%">出厂名称</th>
+            <th width="3%">型号规格</th>
+            <th width="3%">用途</th>
+            <th width="3%">测量范围</th>
+            <th width="3%">精确度等级</th>
+            <th width="3%">制造单位</th>
+            <th width="3%">出厂编号</th>
+            <th width="3%">安装地点</th>
+            <th width="3%">许可证号</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="(key, object) in work.apply.mandatoryInstrumentSet | orderBy: '-id'">
+            <td>{{key + 1}}</td>
+            <td>{{object.id}}</td>
+            <td style="word-wrap: break-word;">
+                {{object.instrumentType.instrumentFirstLevelType.discipline.name}}
+            </td>
+            <td style="word-wrap: break-word;">{{object.instrumentType.instrumentFirstLevelType.name}}</td>
+            <td style="word-wrap: break-word;">{{object.instrumentType.name}}</td>
+            <td style="word-wrap: break-word;">{{object.name}}</td>
+            <td style="word-wrap: break-word;">{{object.outOfFactoryName}}</td>
+            <td style="word-wrap: break-word;">{{object.specificationName}}</td>
+            <td style="word-wrap: break-word;">{{object.purpose.name}}</td>
+            <td style="word-wrap: break-word;">
+                {{object.minMeasureScale | yunzhiMeasureScale: object.maxMeasureScale}}
+            </td>
+            <td style="word-wrap: break-word;">{{object.accuracy.value}}</td>
+            <td style="word-wrap: break-word;">{{object.generativeDepartment.name}}</td>
+            <td style="word-wrap: break-word;">{{object.serialNum}}</td>
+            <td style="word-wrap: break-word;">{{object.fixSite}}</td>
+            <td style="word-wrap: break-word;">{{object.licenseNum}}</td>
+        </tr>
+    </tbody>
+</table>

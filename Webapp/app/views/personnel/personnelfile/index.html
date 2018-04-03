@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-10">
+                    <a ui-sref="personnel.PersonnelFileAdd"><button class="btn btn-info btn-sm" type="button"><i class="fa fa-plus"></i>&nbsp;新增</button></a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <yunzhi-page-size ng-model="params.size" data-reload="reloadBySize"></yunzhi-page-size>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <yunzhi-exportbtn></yunzhi-exportbtn>
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th width="10%" ng-show="isShow.Department">技术机构</th>
+                                <th width="5%">姓名</th>
+                                <th width="7%">出生日期</th>
+                                <th width="12%">学历</th>
+                                <th width="12%">职称</th>
+                                <th width="8%">首次从业日期</th>
+                                <th width="8%">从业年限</th>
+                                <th width="15%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="(key, object) in data.content">
+                                <td style="word-wrap: break-word" ng-show="isShow.Department">{{object.department.name}}</td>
+                                <td style="word-wrap: break-word">{{object.name}}</td>
+                                <td style="word-wrap: break-word">{{object.birthDate | date:"yyyy-MM-dd"}}</td>
+                                <td style="word-wrap: break-word">{{object.education}}</td>
+                                <td style="word-wrap: break-word">{{object.jobTitle}}</td>
+                                <td style="word-wrap: break-word">{{object.firstPractitionerDate | date:"yyyy-MM-dd"}}</td>
+                                <td style="word-wrap: break-word">{{object.practitionersYears}}</td>
+                                <td>
+                                    <yunzhi-access data-route="personnel.PersonnelFile"><a ui-sref="personnel.PersonnelFileEdit({data: object})" class="btn btn-info btn-xs"><i class="fa fa-paste"></i>&nbsp;编辑</a></yunzhi-access>
+                                    <a class="btn btn-danger btn-xs" ng-click="delete($index, object.id)"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <yunzhi-page  data-reload="reloadByPage" data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements"></yunzhi-page>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

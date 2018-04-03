@@ -1,0 +1,136 @@
+<div class="row">
+    <div class="col-sm-6">
+        <a ng-show="showAdd" class="btn btn-info btn-sm" ui-sref="InstrumentForced.InstrumentForcedApply.add({mandatoryInstrumentList: work.mandatoryInstrumentApply.mandatoryInstruments})"><i class="fa fa-plus"></i>&nbsp;增加器具
+        </a>
+        <h3 ng-show="showAutoMatch">
+            <button type="button" class="btn btn-sm btn-success" ng-disabled="disabledBatchOperation()" ng-show="showAutoMatch"
+                    ng-click="batchPass(work.apply.mandatoryInstruments)"><i class="fa fa-legal"></i>&nbsp;&nbsp;予以备案
+            </button>
+            <button type="button" class="btn btn-sm btn-danger2" ng-disabled="disabledBatchOperation()" ng-show="showAutoMatch"
+                    ng-click="batchBack(work.apply.mandatoryInstruments)"><i class="fa fa-times-circle"></i>&nbsp;&nbsp;不予备案
+            </button>
+        </h3>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <br>
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="table-layout: fixed; width: 100%">
+            <thead>
+            <tr>
+                <th width="1%" ng-show="showCheckAll">
+                    <yunzhi-check-all data-lists="work.apply.mandatoryInstruments" data-value="false"></yunzhi-check-all>
+                </th>
+                <th width="2%">学科类别</th>
+                <th width="2%">一级类别</th>
+                <th width="2%">二级类别</th>
+                <th width="2%">器具名称</th>
+                <th width="2%">出厂名称</th>
+                <th width="2%">型号规格</th>
+                <th width="2%">用途</th>
+                <th width="2%">测量范围</th>
+                <th width="2%">精确度等级</th>
+                <th width="2%">制造单位</th>
+                <th width="2%">出厂编号</th>
+                <th width="2%">安装地点</th>
+                <th width="2%">许可证号</th>
+                <th width="2%">状态</th>
+                <th width="3%" ng-show="showCrud">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="object in work.apply.mandatoryInstruments | orderBy: 'id'">
+                <td ng-show="showCheckAll">
+                    <input icheck type="checkbox" ng-model="object._checked">
+                </td>
+                <td style="word-wrap: break-word;">
+                    {{object.instrumentType.instrumentFirstLevelType.discipline.name}}
+                </td>
+                <td style="word-wrap: break-word;">{{object.instrumentType.instrumentFirstLevelType.name}}</td>
+                <td style="word-wrap: break-word;">{{object.instrumentType.name}}</td>
+                <td style="word-wrap: break-word;">{{object.name}} {{object.status}}</td>
+                <td style="word-wrap: break-word;">{{object.outOfFactoryName}}</td>
+                <td style="word-wrap: break-word;">{{object.specificationName}}</td>
+                <td style="word-wrap: break-word;">{{object.purpose.name}}</td>
+                <td style="word-wrap: break-word;">
+                    {{object.minMeasureScale | yunzhiMeasureScale: object.maxMeasureScale}}
+                </td>
+                <td style="word-wrap: break-word;">{{object.accuracy.value}}</td>
+                <td style="word-wrap: break-word;">{{object.generativeDepartment.name}}</td>
+                <td style="word-wrap: break-word;">{{object.serialNum}}</td>
+                <td style="word-wrap: break-word;">{{object.fixSite}}</td>
+                <td style="word-wrap: break-word;">{{object.licenseNum}}</td>
+                <td style="word-wrap: break-word;" ng-bind-html="object | MandatoryInstrumentStatus"></td>
+                <td ng-show="showCrud">
+                    <a class="btn btn-xs btn-info" ui-sref="InstrumentForced.InstrumentForcedEdit({id: object.id, mandatoryInstrument: object, workId: work.id})"><i class="fa fa-paste"></i>&nbsp;编辑
+                    </a>&nbsp;&nbsp;
+                    <button ng-show="showDelete(object)" class="btn btn-xs btn-danger" ng-click="delete(object)"><i class="fa fa-trash-o"></i>&nbsp;删除
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <form class="form-horizontal" ng-submit="submit()">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">提交时间</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">{{work.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">申请单位</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">{{work.apply.department.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">申请人</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">{{work.apply.createUser.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">申请人联系电话</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">{{work.apply.department.name}}</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">备注</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">
+                                {{work.apply.remarks}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">回复意见</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" ng-model="work.apply.replyOpinions" rows="3">
+                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-8 col-sm-offset-4">
+                            <button ng-disabled="form.$invalid || !isWorkDone" ng-hide="form.$submitted" class="btn btn-primary" type="submit">
+                                <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;完成审核
+                            </button>
+                            <button ng-disabled="true" ng-show="form.$submitted" class="btn btn-primary" type="button">
+                                &nbsp;&nbsp;数据正在处理...
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

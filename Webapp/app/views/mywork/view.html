@@ -1,0 +1,51 @@
+<div ng-if="data.work.id" ng-include="'views/' + data.work.apply.applyType.viewDirectory + 'viewIndex.html'" ng-init="work = data.work">
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-4 control-label">待在办人</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">{{data.work.apply.auditingDepartment.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">提交部门</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">{{data.work.preWork.auditDepartment.name}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">提交时间</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">{{data.work.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">申请单位</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">{{data.work.apply.department.name}}</p>
+                </div>
+            </div>
+            <!-- 申请附加字段 -->
+            <yunzhi-apply-field-records data-work="data.work"></yunzhi-apply-field-records>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">流程状态</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">{{data.work | workAuditStatus}}</p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 control-label">历史审核意见</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static">
+                        <yunzhi-history-opinion-of-work ng-model="data.work"></yunzhi-history-opinion-of-work>
+                    </p>
+                </div>
+            </div>
+            <!--审核意见与提交按钮-->
+            <yunzhi-work-choose-and-submit-button data-work="data.work" data-audit-type="data.auditType" data-next-work="data.nextWork" data-show-back="showBack" data-ng-submit="updateApply"></yunzhi-work-choose-and-submit-button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<ui-view>
+    <div class="row">
+        <div class="col-sm-12 text-right">
+            <a ui-sref="mandatory.checkApplyForInstrumentUser.Add({mandatoryInstrumentSet: []})">
+                <button class="btn btn-info btn-sm" type="button"><i class="fa fa-plus">&nbsp;&nbsp;发起一般检定申请</i></button>
+            </a>
+        </div>
+    </div>
+    <div class="table">
+        <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+            <div class="row" ng-hide="showPage">
+                <div class="col-sm-4">
+                    <yunzhi-page-size ng-model="params.size" reload="reloadBySize"></yunzhi-page-size>
+                </div>
+                <div class="col-sm-4">
+                </div>
+            </div>
+            <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>申请日期</th>
+                        <th>受理部门</th>
+                        <th>受理人</th>
+                        <th>受理人电话</th>
+                        <th>是否已回复</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="(key, object) in data.content">
+                        <td>{{data.number * data.size + key + 1}}</td>
+                        <td>{{object.work.createTime | date}}</td>
+                        <td>{{object.work.apply.auditingDepartment.name}}</td>
+                        <td>{{object.work.apply.auditingUser.name}}</td>
+                        <td>{{object.work.apply.auditingUser.mobile}}</td>
+
+                        <td>
+                            <span class="badge" ng-class="{'badge-success': object.work.apply.done, 'badge-danger': !object.work.apply.done}">{{object.work.apply.done | yunzhiTrueOrFalse}}</span></td>
+                        <td>
+                            <a class="btn btn-xs btn-outline btn-info"  ui-sref="mandatory.checkApplyForInstrumentUser.view({workId: object.work.id})"><i class="pe-7s-look"></i>&nbsp;查看</a>
+                            <a class="btn btn-xs btn-outline btn-primary2" ng-click="downloadCheckApply(object.work.apply.id)" ng-show="object.work.apply.done"><i class="fa fa-file-word-o"></i>&nbsp;下载申请</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <yunzhi-page data-reload="reloadByPage" data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements"></yunzhi-page>
+        </div>
+    </div>
+
+</ui-view>

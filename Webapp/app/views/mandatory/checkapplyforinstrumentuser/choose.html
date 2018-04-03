@@ -1,0 +1,130 @@
+<div class="row">
+	<div class="col-lg-12">
+		<form class="form-horizontal" ng-submit="reload()">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">学科类别：</label>
+						<div class="col-sm-8">
+							<yunzhi-discipline ng-model="params.discipline"></yunzhi-discipline>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">一级类别：</label>
+						<div class="col-sm-8">
+							<yunzhi-instrument-type-first-level data-discipline="params.discipline" ng-model="params.instrumentTypeFirstLevel"></yunzhi-instrument-type-first-level>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label">二级类别：</label>
+						<div class="col-sm-8">
+							<yunzhi-mandatory-instrument-type data-instrument-type-first-level="params.instrumentTypeFirstLevel" ng-model="params.instrumentType"></yunzhi-mandatory-instrument-type>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="row">
+						<label class="col-sm-4 control-label">系统编号：</label>
+						<div class="col-sm-8">
+							<input type="number" class="form-control" type="text" ng-model="params.id">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="row">
+						<label class="col-sm-4 control-label">器具名称：</label>
+						<div class="col-sm-8">
+							<input class="form-control" type="text" ng-model="params.name">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="form-group">
+						<label class="col-sm-4 control-label"></label>
+						<div class="col-sm-8">
+							<button type="submit" class="btn btn-info"><i class="fa fa-search"></i>&nbsp;&nbsp;查询
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="table-responsive">
+			<div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+				<div class="row">
+					<div class="col-sm-12">
+						<yunzhi-page-size ng-model="params.size " data-reload="reloadBySize"></yunzhi-page-size>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class="btn btn-primary buttons-print btn-sm" tabindex="0" aria-controls="DataTables_Table_0" ng-click="applyForCheck()"><span>完成选择</span></button>
+					</div>
+
+				</div>
+				<table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th width="1%" ng-show="showCheckAll">
+							<th width="2%">系统编号</th>
+							<th width="2%" ng-if="showShi()">市</th>
+							<th width="2%" ng-if="showQuxian()">区县</th>
+							<th width="2%">器具用户</th>
+							<th width="2%">器具名称</th>
+							<th width="2%">出厂名称</th>
+							<th width="2%">学科类别</th>
+							<th width="2%">一级类别</th>
+							<th width="2%">二级类别</th>
+							<th width="2%">用途</th>
+							<th width="2%">测量范围</th>
+							<th width="2%">准确度等级</th>
+							<th width="2%">规格型号</th>
+							<th width="2%">制造单位</th>
+							<th width="2%">出厂编号</th>
+							<th width="2%">安装地点</th>
+							<th width="2%">许可证号</th>
+							<th width="2%">检定日期</th>
+							<th width="3%">申请截止日期</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="object in data.content" ng-hide="object.hide">
+							<td ng-show="showCheckAll">
+								<input icheck type="checkbox" ng-model="object._checked" ng-checked="isChecked(object)" ng-change="add(object)">
+							</td>
+							<td style="word-wrap: break-word;">{{object.id}}</td>
+							<td ng-if="showShi()">{{object.department.district | yunzhiDistrictName : 'shi'}}</td>
+							<td ng-if="showQuxian()">{{object.department.district | yunzhiDistrictName : 'quxian'}}</td>
+							<td style="word-wrap: break-word;">{{object.department.name}}</td>
+							<td style="word-wrap: break-word;">{{object.name}}</td>
+							<td style="word-wrap: break-word;">{{object.outOfFactoryName}}</td>
+							<td style="word-wrap: break-word;">
+								{{object.instrumentType.instrumentFirstLevelType.discipline.name}}
+							</td>
+							<td style="word-wrap: break-word;">
+								{{object.instrumentType.instrumentFirstLevelType.name}}
+							</td>
+							<td style="word-wrap: break-word;">{{object.instrumentType.name}}</td>
+							<td style="word-wrap: break-word;">{{object.purpose.name}}</td>
+							<td style="word-wrap: break-word;">{{object.minMeasureScale | yunzhiMeasureScale: object.maxMeasureScale}}</td>
+							<td style="word-wrap: break-word;">{{object.accuracy.value}}</td>
+							<td style="word-wrap: break-word;">{{object.specificationName}}</td>
+							<td style="word-wrap: break-word;">{{object.generativeDepartment.name}}</td>
+							<td style="word-wrap: break-word;">{{object.serialNum}}</td>
+							<td style="word-wrap: break-word;">{{object.fixSite}}</td>
+							<td style="word-wrap: break-word;">{{object.licenseNum}}</td>
+							<td style="word-wrap: break-word;">{{object.lastCheckDate | date}}</td>
+							<td style="word-wrap: break-word;">{{object.nextCheckDate | date}} </td>
+						</tr>
+					</tbody>
+				</table>
+				<yunzhi-page data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements" data-reload="reloadByPage"></yunzhi-page>
+			</div>
+		</div>
+	</div>
+</div>

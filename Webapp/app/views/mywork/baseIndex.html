@@ -1,0 +1,47 @@
+<!-- 一级模板 -->
+<div class="table-responsive">
+    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+        <div class="row">
+            <div class="col-sm-4">
+                <yunzhi-page-size ng-model="$parent.params.size" data-reload="reloadBySize"></yunzhi-page-size>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>申请单位</th>
+                <th>申请名称</th>
+                <th>申请日期</th>
+                <th ng-hide="hideAuditDepartment">审核部门</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="_data in $parent.data.content">
+                <td>{{$parent.data.number * $parent.data.size + + $index+1}}</td>
+                <td>{{_data.apply.department.name}}</td>
+                <td>{{_data.apply.name}}
+                </td>
+                <td>{{_data.apply.applyTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td ng-hide="hideAuditDepartment">{{_data.apply.auditingDepartment.name}}</td>
+                <td>
+                    <button ng-show="$parent.showView(_data)" class="btn btn-xs btn-outline btn-info"
+                       ng-click="$parent.clickView(_data)">
+                        <i class="pe-7s-look"></i>&nbsp;查看</button>
+                    <button class="btn btn-xs btn-outline btn-primary2" ng-show="$parent.showAudit(_data)"
+                       ng-click="$parent.clickAudit(_data)">
+                        <i class="fa fa-check-square-o"></i>&nbsp;办理
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <yunzhi-page data-reload="$parent.reloadByPage" data-total-pages="$parent.data.totalPages"
+                     data-total-elements="$parent.data.totalElements" data-first="$parent.data.first"
+                     data-last="$parent.data.last" data-number="$parent.data.number" data-size="$parent.data.size"
+                     data-number-of-elements="$parent.data.numberOfElements"></yunzhi-page>
+    </div>
+</div>

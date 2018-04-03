@@ -1,0 +1,22 @@
+@startuml
+title 这是一个时序图的示例
+autonumber
+发起者 -> 响应者1: 方法名(参数1，参数2）
+note right: 注释
+发起者 <-- 响应者1: 返回数据
+发起者 --> 发起者: 调用自己的方法(参数1）
+发起者 -> 响应者2: 发起请求的描述信息
+note left
+    如果要注释的东西
+    需要换行
+    那么可以这样
+end note
+响应者2 --> 响应者3: 发起请求, 虚线代码异步
+
+响应者2 <-- 响应者3: 返回信息，虚线同样代码异步
+发起者 <- 响应者2: 最后返回信息
+note right
+    官方文档：
+    http://plantuml.com/sequence-diagram
+end note
+@enduml

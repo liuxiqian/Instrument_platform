@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="hpanel">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <yunzhi-page-size ng-model="params.size" data-reload="reloadBySize"></yunzhi-page-size>
+                            </div>
+                            <div class="col-sm-2 col-sm-offset-6">
+                                <button class="btn btn-info btn-sm" type="button" ng-click="add()"><i
+                                    class="fa fa-plus">&nbsp;&nbsp;注册新用户</i></button>
+                            </div>
+                        </div>
+                        <br/>
+                        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th ng-if="showShi()">市</th>
+                                <th ng-if="showQuxian()">区县</th>
+                                <th>统一社会信用代码</th>
+                                <th>单位名称</th>
+                                <th>邮政编号</th>
+                                <th>地址</th>
+                                <th ng-show="showInfo">法人姓名</th>
+                                <th ng-show="showInfo">法人手机</th>
+                                <th ng-show="showInfo">注册人姓名</th>
+                                <th ng-show="showInfo">注册人电话</th>
+                                <th>注册日期</th>
+                                <th>登录用户</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="object in data.content">
+                                <td>{{data.number * data.size + $index + 1}}</td>
+                                <td ng-if="showShi()">{{object.district | yunzhiDistrictName : 'shi'}}</td>
+                                <td ng-if="showQuxian()">{{object.district | yunzhiDistrictName : 'quxian'}}</td>
+                                <td>{{object.code}}</td>
+                                <td>{{object.name}}</td>
+                                <td>{{object.postalCode}}</td>
+                                <td>{{object.address}}</td>
+                                <td ng-show="showInfo">{{object.legalName}}</td>
+                                <td ng-show="showInfo">{{object.legalPhone}}</td>
+                                <td ng-show="showInfo">{{object.registrantName}}</td>
+                                <td ng-show="showInfo">{{object.registrantPhone}}</td>
+                                <td>{{object.createTime | date}}</td>
+                                <td><p ng-repeat="user in object.users">{{user.username}}</p></td>
+                                <td>
+                                    <button class="btn btn-info btn-xs" ng-click="edit(object)"><i
+                                        class="fa fa-paste"></i>&nbsp;编辑
+                                    </button>
+                                    <button class="btn btn-xs btn-danger" ng-click="delete($index, object.id)"><i
+                                        class="fa fa-trash-o"></i>&nbsp;删除
+                                    </button>&nbsp;&nbsp;
+                                    <!--<button class="btn btn-xs btn-success" ng-click="password(data)"><i class="fa fa-pencil-square-o"></i>&nbsp;管理登录用户-->
+                                    <!--</button>-->
+                                    <a ui-sref="department.user({departmentId: object.id})" class="btn btn-info btn-xs"><i
+                                        class="fa fa-paste"></i>&nbsp;管理登录用户</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <yunzhi-page
+                            data-reload="reloadByPage"
+                            data-total-pages="data.totalPages" data-total-elements="data.totalElements"
+                            data-first="data.first" data-last="data.last" data-number="data.number"
+                            data-size="data.size"
+                            data-number-of-elements="data.numberOfElements"></yunzhi-page>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

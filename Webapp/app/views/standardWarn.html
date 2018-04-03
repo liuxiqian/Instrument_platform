@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+        <div class="row">
+            <div class="col-sm-4">
+                <yunzhi-page-size ng-model="$parent.params.size" data-reload="reloadBySize"></yunzhi-page-size>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>系统编号</th>
+                <th>学科类别</th>
+                <th>器具名称</th>
+                <th>标准装置</th>
+                <th>有效期至</th>
+                <th>剩余日期</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="_data in data.content">
+                <td>{{data.number * data.size + $index+1}}</td>
+                <td>{{_data.id}}</td>
+                <td>{{_data.discipline.name}}</td>
+                <td>{{_data.name}}</td>
+                <th>{{_data.deviceSet.name}}</th>
+                <td>{{_data.nextCheckDate | date}}</td>
+                <td ng-bind-html="_data.nextCheckDate | yunzhiOverdueRemainDay"></td>
+            </tr>
+            </tbody>
+        </table>
+        <yunzhi-page data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements" data-reload="reloadByPage"></yunzhi-page>
+    </div>
+</div>

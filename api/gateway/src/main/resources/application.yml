@@ -1,0 +1,34 @@
+ribbon:
+  eureka:
+    enabled: false
+
+# 资源地址
+zuul:
+  routes:
+    resource:
+      path: /resource/**
+# 不排除任何header信息
+      sensitiveHeaders:
+      url: ${resource.url:http://localhost:8081}
+
+# 认证地址(获取accessToken)
+    oauthToken:
+      path: /oauth/token
+# 携带前缀转发数据
+      stripPrefix: false
+      sensitiveHeaders:
+      url: ${oauth.url:http://localhost:8082}
+
+# 认证地址(其它)
+    oauth:
+      path: /oauth/**
+# 携带前缀转发数据
+      url: ${oauth.url:http://localhost:8082}
+
+# 其它地址
+    ui:
+      path: /**
+      url: ${ui.url:http://localhost:8083}
+
+server:
+  port: ${port:8080}

@@ -1,0 +1,7 @@
+<!-- 年度 todo:使用基本的select ng-options进行改写-->
+<ui-select ng-model="year.selected" theme="bootstrap" ng-disabled="disabled">
+    <ui-select-match placeholder="请选择">{{$select.selected.name}}</ui-select-match>
+    <ui-select-choices repeat="year in years track by year.value">
+        <div ng-bind-html="year.name | highlight: $select.search"></div>
+    </ui-select-choices>
+</ui-select>

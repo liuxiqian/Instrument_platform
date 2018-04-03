@@ -1,0 +1,8 @@
+<!--审核指令-->
+<yunzhi-audit-choose data-work="work" data-audit-type="auditType" ng-model="nextWork"></yunzhi-audit-choose>
+<div class="form-group">
+    <div class="col-sm-8 col-sm-offset-4">
+        <button ng-show="showBack" ng-click="back()" class="btn btn-primary2" type="button"><i class="fa fa-history"></i>&nbsp;<span class="bold">&nbsp;返回</span></button>
+        <button ng-disabled="disabledSubmit" ng-hide="showBack" ng-click="ngSubmit()" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;<span class="bold">&nbsp;确定</span></button>
+    </div>
+</div>

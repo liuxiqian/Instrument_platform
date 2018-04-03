@@ -1,0 +1,44 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: ${jpa.ddl-auto:update}
+  datasource:
+#    url: jdbc:mysql://${datasource.host:127.0.0.1}:${datasource.port:3306}/measurement?useUnicode=true&characterEncoding=utf-8
+    username: ${datasource.username:root}
+    password: ${datasource.password:}
+  session:
+    store-type: hash_map
+  resources:
+    static-locations: classpath:/resources
+  http:
+    multipart:
+      max-file-size: 1024KB
+      max-request-size: 1024KB
+server:
+  port: ${port:8081}
+security:
+  sessions: never
+SMS:
+  Uid: chuhang
+  Key: 8482c4d9e71e0a96da86
+attachment:
+  image:
+#  附件上传路径
+    directory: attachment/image
+logging:
+  path: logs/
+  level:
+    root: warn
+    com:
+      mengyunzhi:
+        measurement:
+          ResourceApplication: ${logging.level:debug}
+    org:
+      hibernate:
+        SQL: warn
+        type:
+          descriptor:
+            sql: warn
+yunzhi:
+  warn_before_day: 30
+debug: true

@@ -1,0 +1,49 @@
+<div class="table-responsive">
+    <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+        <div class="row">
+            <div class="col-md-4">
+                <button ng-show="showBack()" class="btn btn-sm btn-warning" ng-click="back()">返回</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                当前用户:  <strong>{{department.name}}</strong>
+            </div>
+        	
+            <div class="col-sm-2 col-sm-offset-6">
+                <a ui-sref="department.userAdd({departmentId: department.id})">
+                    <button class="btn btn-info btn-sm" type="button"><i class="fa fa-plus">&nbsp;&nbsp;新增</i></button>
+                </a>
+            </div>
+        </div>
+        <br />
+        <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped" style="table-layout: fixed; width: 100%">
+            <thead>
+                <tr>
+                    <th width="5%">编号</th>
+                    <th width="10%">登录名称</th>
+                    <th width="7%">权限</th>
+                    <th width="7%">用户状态</th>
+                    <th width="10%">注册时间</th>
+                    <th width="20%">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="object in data">
+                    <td style="word-wrap: break-word">{{$index+1}}</td>
+                    <td style="word-wrap: break-word">{{object.username}}</td>
+                    <td style="word-wrap: break-word"><span ng-repeat="_role in object.roles">{{_role.name}}&nbsp;&nbsp;</span></td>
+                    <td style="word-wrap: break-word">
+                        <span class="badge " ng-class="{'badge-success': object.status == 0, 'badge-primary': object.status == -1, 'badge-danger': object.status == 1, 'badge-info': object.status == 2}">{{object.status | userStatus}}</span>
+                    </td>
+                    <td style="word-wrap: break-word">{{object.createTime | date:'yyyy-MM-dd'}}</td>
+                    <td style="word-wrap: break-word">
+                        <a class="btn btn-xs btn-info" ui-sref="system.UserfileEdit({data: object, department: department})"><i
+                                class="fa fa-paste"></i>&nbsp;修改状态权限
+                        </a>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-danger" ng-click="delete($index, object, data)"><i class="fa fa-trash-o"></i>&nbsp;删除
+                        </button>&nbsp;&nbsp;
+                        <button class="btn btn-xs btn-success" ng-click="resetPassword(object)"><i class="fa fa-pencil-square-o"></i>&nbsp;重置密码
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<ui-view>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-10">
+                    <a ui-sref="standard.FileAdd"  ng-show="isShow.Add">
+                        <button class="btn btn-info btn-sm" type="button"><i class="fa fa-plus"></i>&nbsp;新增</button>
+                    </a>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <div class="dataTables_wrapper form-inline dt-bootstrap no-footer" id="DataTables_Table_0_wrapper">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <yunzhi-page-size ng-model="params.size" data-reload="reloadBySize"></yunzhi-page-size>
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <yunzhi-exportbtn></yunzhi-exportbtn>
+                        </div>
+                        <div class="col-sm-4">
+                        </div>
+                    </div>
+                    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th width="1%" ng-if="showShi()">市</th>
+                            <th width="1%" ng-if="showQuxian()">区县</th>
+                            <th width="1%">代码</th>
+                            <th width="2%">技术机构</th>
+                            <th width="3%">计量标准装置名称</th>
+                            <th width="2%">考核证表编号</th>
+                            <th width="2%">考核日期</th>
+                            <th width="2%">颁发日期</th>
+                            <th width="2%">有效期至</th>
+                            <th width="1%">检测项目</th>
+                            <th width="1%">标准器信息</th>
+                            <th width="3%" ng-show="isShow.Operation">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key, object) in data.content">
+                            <td ng-if="showShi()">{{object.department.district | yunzhiDistrictName : 'shi'}}</td>
+                            <td ng-if="showQuxian()">{{object.department.district | yunzhiDistrictName : 'quxian'}}</td>
+                            <td style="word-wrap: break-word;">{{object.code}}</td>
+                            <td style="word-wrap: break-word;">{{object.department.name}}</td>
+                            <td style="word-wrap: break-word;">{{object.name}}</td>
+                            <td style="word-wrap: break-word;">{{object.certificateNum}}</td>
+                            <td style="word-wrap: break-word;">{{object.checkDate}}</td>
+                            <td style="word-wrap: break-word;">{{object.issueDate}}</td>
+                            <td style="word-wrap: break-word;">{{object.validityDate}}</td>
+                            <td>
+                                <a ui-sref="standard.deviceSetManage.authorization({deviceSetId: object.id})" class="btn btn-xs btn-outline btn-info"><i class="pe-7s-look"></i>&nbsp;查看</a>
+                            </td>
+                            <td>
+                                <a ui-sref="standard.deviceSetManage.detail({deviceSetId: object.id})" class="btn btn-xs btn-outline btn-info"><i class="pe-7s-look"></i>&nbsp;查看</a>
+                            </td>
+                            <td style="word-wrap: break-word;" ng-show="isShow.Operation">
+                                <yunzhi-access data-route="standard.deviceSetManage"><a ui-sref="standard.deviceSetManage.detail({deviceSetId: object.id})" class="btn btn-xs btn-info"> <i class="fa fa-paste"></i>&nbsp;
+                                    编辑&nbsp;</a></yunzhi-access>&nbsp;&nbsp;
+                                <yunzhi-access data-route="standard.deviceSetManage"><a ng-click="delete($index, object)" class="btn btn-xs btn-danger"><i class="fa fa-trash-o"></i>&nbsp;
+                                    删除&nbsp;</a></yunzhi-access>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <yunzhi-page data-reload="reloadByPage" data-total-pages="data.totalPages" data-total-elements="data.totalElements" data-first="data.first" data-last="data.last" data-number="data.number" data-size="data.size" data-number-of-elements="data.numberOfElements"></yunzhi-page>
+                </div>
+            </div>
+        </div>
+    </div>
+</ui-view>
+
